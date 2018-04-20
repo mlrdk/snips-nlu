@@ -26,6 +26,7 @@ required = [
     "semantic_version==2.6.0",
     "snips_nlu_utils==0.6.1",
     "snips_nlu_ontology==0.54.2",
+    "text_processing_service==0.6.1",
     "num2words==0.5.6"
 ]
 

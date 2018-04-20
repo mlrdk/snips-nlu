@@ -6,6 +6,7 @@ from itertools import cycle
 
 from future.utils import iteritems
 from snips_nlu_ontology import get_builtin_entity_examples
+from text_processing_service.processing import normalize_text
 
 from snips_nlu.builtin_entities import is_builtin_entity
 from snips_nlu.constants import (UTTERANCES, DATA, ENTITY, TEXT, INTENTS,
@@ -72,6 +73,10 @@ def get_entities_iterators(intent_entities, language, random_state):
         if is_builtin_entity(entity_name):
             entity_examples = get_builtin_entity_examples(entity_name,
                                                           language)
+            # Normalize and add a space on the left of examples
+            entity_examples = [normalize_text(e, language)
+                               for e in entity_examples]
+
             # Builtin entity examples must be kept first in the iterator to
             # ensure that they are used when augmenting data
             iterator_values = entity_examples + list(utterance_values)
