@@ -1,9 +1,9 @@
 from __future__ import unicode_literals
 
-from builtins import next
 from copy import deepcopy
 from itertools import cycle
 
+from builtins import next
 from future.utils import iteritems
 from snips_nlu_ontology import get_builtin_entity_examples
 from text_processing_service.processing import normalize_text
@@ -74,8 +74,10 @@ def get_entities_iterators(intent_entities, language, random_state):
             entity_examples = get_builtin_entity_examples(entity_name,
                                                           language)
             # Normalize and add a space on the left of examples
-            entity_examples = [normalize_text(e, language)
-                               for e in entity_examples]
+            entity_examples = [
+                normalize_text(e, language)["joinedNormalizedTokens"] + " "
+                for e in entity_examples
+            ]
 
             # Builtin entity examples must be kept first in the iterator to
             # ensure that they are used when augmenting data
