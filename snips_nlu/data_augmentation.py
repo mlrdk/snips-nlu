@@ -52,7 +52,9 @@ def generate_utterance(contexts_iterator, entities_iterators):
         if ENTITY in chunk:
             new_chunk = dict(chunk)
             new_chunk[TEXT] = deepcopy(
-                next(entities_iterators[new_chunk[ENTITY]])) + " "
+                next(entities_iterators[new_chunk[ENTITY]]))
+            if not new_chunk[TEXT].endswith(" "):
+                new_chunk[TEXT] += " "
             context_data.append(new_chunk)
         else:
             context_data.append(chunk)
